@@ -1,17 +1,17 @@
 console.log('Before');
 const user = getUser(1, (user) => {
   // Get the repositories
-  getRepositories(user.gitHubUsername, (repo) => {
-    console.log('Repos of ', user.gitHubUsername, ': ', repo);
-    getCommits(repo, (commits) => {
-      console.log('Commit ', commits);
-      /* ...
-      CALLBACK HELL
-      */
-    });
-  });
+  getRepositories(user.gitHubUsername, getCommits);
 });
 console.log('After');
+
+function getCommits(repos) {
+  getCommits(repo, displayCommits);
+}
+
+function displayCommits(commits) {
+  console.log(commits);
+}
 
 function getUser(id, callback) {
   setTimeout(() => {
